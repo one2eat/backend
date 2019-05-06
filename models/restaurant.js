@@ -9,10 +9,10 @@ const schema = new mongoose.Schema({
     open: Date,
     close: Date,
   }
-})
+}, {
+    timestamps: true
+  })
 
-const model = mongoose.model('Restaurant', schema, {
-  timestamps: true
-})
+const model = mongoose.model('Restaurant', schema)
 
 module.exports = model
