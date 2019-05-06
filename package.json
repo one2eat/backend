@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "setup": "cp .env.example .env"
   },
   "repository": "git@github.com:one2eat/backend.git",
   "author": "Raga Subekti <rfilmriot@gmail.com>, Bintang Saputra <bintangcbs26@gmail.com>",
