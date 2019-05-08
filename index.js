@@ -26,8 +26,6 @@ app.use(logger("dev"));
  * Routes
  */
 app.use("/", indexRoutes);
-app.use("/restaurants", restaurantRoutes);
-app.use("/recipes", recipesRoutes);
 
 /**
  * Express Listener, Listen to Port 6900, if not specified
