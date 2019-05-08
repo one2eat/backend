@@ -7,6 +7,7 @@ const logger = require("morgan");
  */
 const indexRoutes = require("./routes/index");
 const UserRoutes = require("./routes/UserRoutes");
+const RestaurantRoutes = require("./routes/RestaurantRoutes");
 
 /**
  * Initialize Express App
@@ -27,7 +28,7 @@ app.use(logger("dev"));
  */
 app.use("/", indexRoutes);
 app.use("/user", UserRoutes);
-
+app.use("/restaurants", RestaurantRoutes);
 /**
  * Express Listener, Listen to Port 6900, if not specified
  */
