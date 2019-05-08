@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "setup": "cp .env.example .env"
+    "setup": "cp .env.example .env",
+    "migration:refresh": "sequelize db:migrate:undo:all && sequelize db:migrate"
   },
   "repository": "git@github.com:one2eat/backend.git",
   "author": "Raga Subekti <rfilmriot@gmail.com>, Bintang Saputra <bintangcbs26@gmail.com>",
@@ -22,6 +23,7 @@
     "sequelize": "5.8.5"
   },
   "devDependencies": {
-    "nodemon": "1.19.0"
+    "nodemon": "1.19.0",
+    "sequelize-cli": "^5.4.0"
   }
 }

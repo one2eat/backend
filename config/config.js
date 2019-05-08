@@ -3,7 +3,7 @@ const { DB_HOSTNAME, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 module.exports = {
   development: {
     username: "root",
-    password: "",
+    password: "root",
     database: "one2eat_dev",
     host: "127.0.0.1",
     dialect: "mysql"
