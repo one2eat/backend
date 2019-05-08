@@ -1,18 +1,12 @@
-const mongoose = require("mongoose");
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const Recipes = sequelize.define('Recipes', {
+    name: DataTypes.STRING
+  }, {});
 
-const schema = new mongoose.Schema(
-  {
-    name: String,
-    imageUrl: String,
-    ingredients: [],
-    tags: [],
-    steps: []
-  },
-  {
-    timestamps: true
-  }
-);
+  Recipes.associate = (models) => {
+    // associations can be defined here
+  };
 
-const model = mongoose.model("Recipes", schema);
-
-module.exports = model;
+  return Recipes;
+};

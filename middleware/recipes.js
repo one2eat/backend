@@ -12,7 +12,7 @@ const createRecipes = async (req, res) => {
       steps
     });
 
-    return res.status(201).send({
+    return res.status(20                                                                 1).send({
       success: true,
       message: "Successfully created recipes",
       data: result
