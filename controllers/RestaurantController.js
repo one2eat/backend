@@ -10,11 +10,19 @@ const createRestaurant = async (req, res) => {
   });
 
   res.send({
-    message: "success fully created restaurant",
+    message: "successfully created restaurant",
     data: create
   });
 };
 
+const getRestaurants = async (req, res) => {
+  const result = await model.Restaurant.findAll();
+  res.send({
+    message: "successfully get restaurant",
+    data: result
+  });
+};
 module.exports = {
-  createRestaurant
+  createRestaurant,
+  getRestaurants
 };
