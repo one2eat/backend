@@ -6,8 +6,8 @@ const logger = require("morgan");
  * Local Import, usually routes
  */
 const indexRoutes = require("./routes/index");
-const restaurantRoutes = require("./routes/restaurant");
-const recipesRoutes = require("./routes/recipes");
+const UserRoutes = require("./routes/UserRoutes");
+
 /**
  * Initialize Express App
  */
@@ -26,6 +26,7 @@ app.use(logger("dev"));
  * Routes
  */
 app.use("/", indexRoutes);
+app.use("/user", UserRoutes);
 
 /**
  * Express Listener, Listen to Port 6900, if not specified
