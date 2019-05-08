@@ -3,15 +3,20 @@ const path = require("path");
 const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
-const config = require("../config/config");
+const config = require("../config/config")[env];
 
-const { database, username, password, host, dialect } = config.db;
 const db = {};
 
-const sequelize = new Sequelize(database, username, password, {
-  host: host,
-  dialect: dialect
-});
+if (config.use_env_variable) {
+  var sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  var sequelize = new Sequelize(
+    config.database,
+    config.username,
+    config.password,
+    config
+  );
+}
 
 fs.readdirSync(__dirname)
   .filter(file => {
@@ -20,7 +25,7 @@ fs.readdirSync(__dirname)
     );
   })
   .forEach(file => {
-    var model = sequelize["import"](path.join(__dirname, file));
+    const model = sequelize["import"](path.join(__dirname, file));
     db[model.name] = model;
   });
 
