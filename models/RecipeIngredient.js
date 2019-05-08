@@ -3,9 +3,12 @@ module.exports = (sequelize, DataTypes) => {
   const RecipeIngredient = sequelize.define(
     "RecipeIngredient",
     {
-      name: DataTypes.STRING
+      recipesId: DataTypes.INTEGER,
+      content: DataTypes.TEXT
     },
-    {}
+    {
+      timestamps: true
+    }
   );
   RecipeIngredient.associate = function(models) {
     // associations can be defined here
