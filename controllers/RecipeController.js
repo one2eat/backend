@@ -3,64 +3,100 @@ const model = require("../models");
 const { Recipe, RecipeIngredient, RecipeStep } = model;
 
 const createRecipe = async (req, res) => {
-  // let transaction;
+  /**
+   * Initialize Transaction Variable
+   */
+  let transaction;
 
+  /**
+   * Get Body
+   * @body name: String
+   * @body imageUrl: String
+   * @body ingredients: Array<String>
+   * @body steps: Array<String>
+   */
   const { name, imageUrl, ingredients, steps } = req.body;
+
   try {
     /**
-     * Initialize Transaction
+     * Bind Model Transaction to Transaction Variable
      */
-    await model.sequelize.transaction().then(async transaction => {
-      /**
-       * Create Recipe
-       */
-      const recipe = await Recipe.create({ name, imageUrl }, { transaction });
+    transaction = await model.sequelize.transaction();
 
-      /**
-       * Loop Ingredients and Insert New Data from each Ingredient
-       */
+    /**
+     * Create Recipe
+     */
+    const recipe = await Recipe.create({ name, imageUrl }, { transaction });
 
-      await Promise.all(
-        ingredients.map(async item => {
-          await RecipeIngredient.create(
-            {
-              recipesId: recipe.id,
-              content: item
-            },
-            { transaction }
-          );
-        })
-      );
+    /**
+     * Loop Ingredients and Insert New Data from each Ingredient
+     */
+    await Promise.all(
+      ingredients.map(async item => {
+        await RecipeIngredient.create(
+          {
+            recipesId: recipe.id,
+            content: item
+          },
+          { transaction }
+        );
+      })
+    );
 
-      await Promise.all(
-        steps.map(async (step, index) => {
-          await RecipeStep.create(
-            {
-              recipesId: recipe.id,
-              step: index,
-              content: step
-            },
-            { transaction }
-          );
-        })
-      );
+    /**
+     * Loop Steps and Insert New Data from each Step
+     */
+    await Promise.all(
+      steps.map(async (step, index) => {
+        await RecipeStep.create(
+          {
+            recipesId: recipe.id,
+            step: index,
+            content: step
+          },
+          { transaction }
+        );
+      })
+    );
 
-      transaction.commit();
-    });
+    /** Commit The Transaction */
+    transaction.commit();
 
-    res.send({
+    return res.send({
       message: "Successfully Created Recipe"
-      // data: recipe
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).send({
+    /**
+     * Rollback Data When There's an Error
+     */
+    transaction.rollback();
+
+    return res.status(500).send({
       message: "there's an error on our side, that's all we know!",
       stack: err
     });
   }
 };
 
+const getRecipes = async (req, res) => {
+  try {
+    const result = await Recipe.findAll({
+      include: [RecipeIngredient, RecipeStep]
+    });
+
+    return res.send({
+      message: "Success",
+      data: result
+    });
+  } catch (error) {
+    return res.status(500).send({
+      message: "there's an error on our side, that's all we know!",
+      stack: error
+    });
+  }
+};
+
 module.exports = {
-  createRecipe
+  createRecipe,
+  getRecipes
 };

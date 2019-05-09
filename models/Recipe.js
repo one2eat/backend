@@ -10,8 +10,17 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: true
     }
   );
-  Recipe.associate = function(models) {
-    // associations can be defined here
+  Recipe.associate = models => {
+    models.Recipe.hasMany(models.RecipeIngredient, {
+      foreignKey: "recipesId",
+      sourceKey: "id"
+    });
+
+    models.Recipe.hasMany(models.RecipeStep, {
+      foreignKey: "recipesId",
+      sourceKey: "id"
+    });
   };
+
   return Recipe;
 };
