@@ -1,4 +1,4 @@
-const model = require("../models");
+const model = require("../models").Restaurant;
 const { validationResult } = require("express-validator/check");
 
 const createRestaurant = async (req, res) => {
@@ -13,7 +13,7 @@ const createRestaurant = async (req, res) => {
 
   try {
     const { name, imageUrl, address, phoneNumber } = req.body;
-    const create = await model.Restaurant.create({
+    const create = await model.create({
       name,
       imageUrl,
       address,
@@ -33,7 +33,7 @@ const createRestaurant = async (req, res) => {
 };
 
 const getRestaurants = async (req, res) => {
-  const result = await model.Restaurant.findAll();
+  const result = await model.findAll();
   res.send({
     message: "successfully get restaurant",
     data: result
