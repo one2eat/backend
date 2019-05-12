@@ -1,5 +1,9 @@
-const { Recipe: Middleware, handleValidatorError } = require("../middleware");
-const { checkCreateReviewRecipe } = Middleware;
+const {
+  Recipe: Middleware,
+  handleValidatorError,
+  isAuthorized
+} = require("../middleware");
+const { checkCreateReviewRecipe, checkCreateRecipe } = Middleware;
 
 const {
   createRecipe,
@@ -10,12 +14,20 @@ const {
 } = require("../controllers").Recipe;
 const route = require("express").Router();
 
-route.post("/", createRecipe);
-route.get("/", getAllRecipes);
-route.get("/:id", getOneRecipe);
+route.post(
+  "/",
+  isAuthorized,
+  checkCreateRecipe,
+  handleValidatorError,
+  createRecipe
+);
+
+route.get("/", isAuthorized, getAllRecipes);
+route.get("/:id", isAuthorized, getOneRecipe);
 
 route.post(
   "/:id/review",
+  isAuthorized,
   checkCreateReviewRecipe,
   handleValidatorError,
   createRecipeReview

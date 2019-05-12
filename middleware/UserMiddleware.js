@@ -9,12 +9,7 @@ const checkSignupField = [
   check("password").exists()
 ];
 
-const isAuthorized = (req, res, next) => {
-  const token = req.headers.authorization;
-};
-
 module.exports = {
   checkSigninField,
-  checkSignupField,
-  isAuthorized
+  checkSignupField
 };
