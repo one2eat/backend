@@ -80,9 +80,7 @@ const createRecipe = async (req, res) => {
 
 const getRecipes = async (req, res) => {
   try {
-    const result = await Recipe.findAll({
-      include: [RecipeIngredient, RecipeStep]
-    });
+    const result = await Recipe.findAll();
 
     return res.send({
       message: "Success",
