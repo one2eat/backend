@@ -1,9 +1,20 @@
 const app = require("express").Router();
 
-const Controller = require("../controllers").Restaurant;
-const Middleware = require("../middleware").Restaurant;
+const {
+  Restaurant: Middleware,
+  handleValidatorError
+} = require("../middleware");
 
-app.post("/", Middleware.checkCreateRestaurant, Controller.createRestaurant);
+const Controller = require("../controllers").Restaurant;
+
+// const Middleware = .Restaurant;
+
+app.post(
+  "/",
+  Middleware.checkCreateRestaurant,
+  handleValidatorError,
+  Controller.createRestaurant
+);
 app.get("/", Controller.getRestaurants);
 
 module.exports = app;
