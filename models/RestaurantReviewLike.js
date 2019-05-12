@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     "RestaurantReviewLike",
     {
       idUser: DataTypes.INTEGER,
-      idRecipesReview: DataTypes.INTEGER
+      recipesReviewId: DataTypes.INTEGER
     },
     {
       timestamps: true
