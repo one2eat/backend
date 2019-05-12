@@ -1,6 +1,6 @@
 // Use Recipe Model
 const model = require("../models");
-const { Recipe, RecipeIngredient, RecipeStep, RecipeReview } = model;
+const { Recipe, RecipeIngredient, RecipeStep, RecipeReview, Users } = model;
 
 const createRecipe = async (req, res) => {
   /**
@@ -165,7 +165,13 @@ const getRecipeReview = async (req, res) => {
     const review = await RecipeReview.findAll({
       where: {
         recipesId: req.params.id
-      }
+      },
+      include: [
+        {
+          model: Users,
+          attributes: ["name", "email"]
+        }
+      ]
     });
 
     res.send({

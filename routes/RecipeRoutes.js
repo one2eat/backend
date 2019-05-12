@@ -5,7 +5,8 @@ const {
   createRecipe,
   getAllRecipes,
   getOneRecipe,
-  createRecipeReview
+  createRecipeReview,
+  getRecipeReview
 } = require("../controllers").Recipe;
 const route = require("express").Router();
 
@@ -19,5 +20,7 @@ route.post(
   handleValidatorError,
   createRecipeReview
 );
+
+route.get("/:id/review", getRecipeReview);
 
 module.exports = route;

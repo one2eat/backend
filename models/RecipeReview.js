@@ -13,7 +13,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   RecipeReview.associate = function(models) {
-    // associations can be defined here
+    models.RecipeReview.belongsTo(models.Users, {
+      foreignKey: "userId",
+      targetKey: "id"
+    });
   };
   return RecipeReview;
 };
