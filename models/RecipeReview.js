@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const RecipeReview = sequelize.define(
     "RecipeReview",
     {
-      recipeId: DataTypes.INTEGER,
+      recipesId: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
       content: DataTypes.TEXT,
       stars: DataTypes.INTEGER
