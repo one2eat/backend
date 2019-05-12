@@ -73,10 +73,13 @@ const userRegistration = async (req, res) => {
       password: hash
     });
 
-    const token = jwt.sign({
-      id: create.id,
-      email: email
-    });
+    const token = jwt.sign(
+      {
+        id: create.id,
+        email: email
+      },
+      JWT_SECRET
+    );
 
     return res.status(201).send({
       message: "Successfully registered in",
