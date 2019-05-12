@@ -17,5 +17,6 @@ const handleValidatorError = (req, res, next) => {
 module.exports = {
   handleValidatorError,
   Users: require("./UserMiddleware"),
-  Restaurant: require("./RestaurantMiddleware")
+  Restaurant: require("./RestaurantMiddleware"),
+  Recipe: require("./RecipeMiddleware")
 };
