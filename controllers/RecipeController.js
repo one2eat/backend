@@ -62,7 +62,7 @@ const createRecipe = async (req, res) => {
     /** Commit The Transaction */
     transaction.commit();
 
-    return res.send({
+    res.send({
       message: "Successfully Created Recipe"
     });
   } catch (err) {
@@ -71,10 +71,11 @@ const createRecipe = async (req, res) => {
      */
     transaction.rollback();
 
-    return res.status(500).send({
+    res.status(500).send({
       message: "there's an error on our side, that's all we know!",
       stack: err
     });
+    throw new Error(error);
   }
 };
 
@@ -82,19 +83,46 @@ const getAllRecipes = async (req, res) => {
   try {
     const result = await Recipe.findAll();
 
-    return res.send({
+    res.send({
       message: "Success",
       data: result
     });
   } catch (error) {
-    return res.status(500).send({
+    res.status(500).send({
       message: "there's an error on our side, that's all we know!",
       stack: error
     });
+    throw new Error(error);
+  }
+};
+
+const getOneRecipe = async (req, res) => {
+  try {
+    const recipe = await Recipe.findByPk(req.params.id, {
+      include: [RecipeIngredient, RecipeStep]
+    });
+
+    if (recipe === null) {
+      return res.status(404).send({
+        message: "Recipe not found"
+      });
+    }
+
+    res.send({
+      message: "Success",
+      data: recipe
+    });
+  } catch (e) {
+    res.status(500).send({
+      message: "There's an error at our side and that's all we know"
+    });
+
+    throw new Error(e);
   }
 };
 
 module.exports = {
   createRecipe,
-  getAllRecipes
+  getAllRecipes,
+  getOneRecipe
 };
