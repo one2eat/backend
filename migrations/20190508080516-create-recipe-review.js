@@ -9,15 +9,18 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       recipesId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       userId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       content: {
         type: Sequelize.TEXT
       },
       stars: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {
