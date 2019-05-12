@@ -10,36 +10,36 @@ const searchRecipesAndRestaurant = async (req, res) => {
 
     const rawQuery = `
 			SELECT
-				one2eat_dev.Recipes.name,
-				one2eat_dev.Recipes.id,
+				Recipes.name,
+				Recipes.id,
 				CONCAT( "recipe" ) AS type 
 			FROM
-				one2eat_dev.Recipes
-				JOIN one2eat_dev.RecipeIngredients ON one2eat_dev.Recipes.id = one2eat_dev.RecipeIngredients.recipesId 
+				Recipes
+				JOIN RecipeIngredients ON Recipes.id = RecipeIngredients.recipesId 
 			WHERE
 				content LIKE $query
 				OR name LIKE $query
 			GROUP BY
 				id UNION ALL
 			SELECT
-				one2eat_dev.Restaurants.name,
-				one2eat_dev.Restaurants.id,
+				Restaurants.name,
+				Restaurants.id,
 				CONCAT( "restaurant" ) AS type 
 			FROM
-				one2eat_dev.RestaurantMenus
-				LEFT JOIN one2eat_dev.Restaurants ON one2eat_dev.RestaurantMenus.restaurantId = one2eat_dev.Restaurants.id 
+				RestaurantMenus
+				LEFT JOIN Restaurants ON RestaurantMenus.restaurantId = Restaurants.id 
 			WHERE
 				RestaurantMenus.name LIKE $query
 				OR Restaurants.name LIKE $query 
 			GROUP BY
 				id UNION
 			SELECT
-				one2eat_dev.Restaurants.name,
-				one2eat_dev.Restaurants.id,
+				Restaurants.name,
+				Restaurants.id,
 				CONCAT( "restaurant" ) AS type 
 			FROM
-				one2eat_dev.RestaurantMenus
-				RIGHT JOIN one2eat_dev.Restaurants ON one2eat_dev.RestaurantMenus.restaurantId = one2eat_dev.Restaurants.id 
+				RestaurantMenus
+				RIGHT JOIN Restaurants ON RestaurantMenus.restaurantId = Restaurants.id 
 			WHERE
 				RestaurantMenus.name LIKE $query
 				OR Restaurants.name LIKE $query
