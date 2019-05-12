@@ -1,6 +1,6 @@
 // Use Recipe Model
 const model = require("../models");
-const { Recipe, RecipeIngredient, RecipeStep } = model;
+const { Recipe, RecipeIngredient, RecipeStep, RecipeReview } = model;
 
 const createRecipe = async (req, res) => {
   /**
@@ -121,8 +121,69 @@ const getOneRecipe = async (req, res) => {
   }
 };
 
+const createRecipeReview = async (req, res) => {
+  try {
+    const recipe = await Recipe.findByPk(req.params.id);
+
+    if (recipe === null) {
+      return res.status(404).send({
+        message: "Recipe not found"
+      });
+    }
+
+    const create = await RecipeReview.create({
+      userId: 1,
+      recipesId: req.params.id,
+      content: req.body.content,
+      stars: req.body.stars
+    });
+
+    return res.status(201).send({
+      message: "Successfully posted review",
+      data: {
+        content: req.body.content
+      }
+    });
+  } catch (e) {
+    res.status(500).send({
+      message: "There's an error on our side and that's all we know"
+    });
+    throw new Error(e);
+  }
+};
+
+const getRecipeReview = async (req, res) => {
+  try {
+    const recipe = await Recipe.findByPk(req.params.id);
+
+    if (recipe === null) {
+      return res.status(404).send({
+        message: "Recipe not found"
+      });
+    }
+
+    const review = await RecipeReview.findAll({
+      where: {
+        recipesId: req.params.id
+      }
+    });
+
+    res.send({
+      message: "Success",
+      data: review
+    });
+  } catch (e) {
+    res.status(500).send({
+      message: "There's an error on our side and that's all we know"
+    });
+    throw new Error(e);
+  }
+};
+
 module.exports = {
   createRecipe,
   getAllRecipes,
-  getOneRecipe
+  getOneRecipe,
+  createRecipeReview,
+  getRecipeReview
 };
