@@ -30,7 +30,6 @@ const isAuthorized = async (req, res, next) => {
 
   try {
     const verify = jwt.verify(token, JWT_SECRET);
-
     const user = await Users.findByPk(verify.id);
 
     if (user === null) {
@@ -38,6 +37,8 @@ const isAuthorized = async (req, res, next) => {
         message: "Token is invalid"
       });
     }
+
+    req.auth = user;
 
     next();
   } catch (e) {

@@ -132,7 +132,7 @@ const createRecipeReview = async (req, res) => {
     }
 
     const create = await RecipeReview.create({
-      userId: 1,
+      userId: req.auth.id,
       recipesId: req.params.id,
       content: req.body.content,
       stars: req.body.stars
