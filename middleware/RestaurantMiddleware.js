@@ -1,4 +1,4 @@
-const { check, validationResult } = require("express-validator/check");
+const { check } = require("express-validator/check");
 
 const checkCreateRestaurant = [
   check("name").exists(),
@@ -7,6 +7,9 @@ const checkCreateRestaurant = [
   check("phoneNumber").exists()
 ];
 
+const checkCreateReviewRestaurant = [check("content").exists()];
+
 module.exports = {
-  checkCreateRestaurant
+  checkCreateRestaurant,
+  checkCreateReviewRestaurant
 };
