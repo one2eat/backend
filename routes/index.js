@@ -11,5 +11,6 @@ module.exports = {
   Root: app,
   Recipe: require("./RecipeRoutes"),
   Restaurant: require("./RestaurantRoutes"),
-  User: require("./UserRoutes")
+  User: require("./UserRoutes"),
+  Search: require("./SearchRoutes")
 };

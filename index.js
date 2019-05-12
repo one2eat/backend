@@ -28,6 +28,7 @@ app.use("/", Routes.Root);
 app.use("/users", Routes.User);
 app.use("/restaurants", Routes.Restaurant);
 app.use("/recipes", Routes.Recipe);
+app.use("/search", Routes.Search);
 
 // Handle Sentry
 app.use(function onError(err, req, res, next) {
