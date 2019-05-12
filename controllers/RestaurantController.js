@@ -2,15 +2,6 @@ const model = require("../models").Restaurant;
 const { validationResult } = require("express-validator/check");
 
 const createRestaurant = async (req, res) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    return res.status(422).send({
-      message: "there's missing input or invalid input",
-      errors: errors.array()
-    });
-  }
-
   try {
     const { name, imageUrl, address, phoneNumber } = req.body;
     const create = await model.create({
