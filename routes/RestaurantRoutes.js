@@ -5,16 +5,15 @@ const {
   handleValidatorError
 } = require("../middleware");
 
-const Controller = require("../controllers").Restaurant;
+const { checkCreateRestaurant, checkCreateReviewRestaurant } = Middleware;
+const {
+  createRestaurant,
+  getRestaurants
+} = require("../controllers").Restaurant;
 
 // const Middleware = .Restaurant;
 
-app.post(
-  "/",
-  Middleware.checkCreateRestaurant,
-  handleValidatorError,
-  Controller.createRestaurant
-);
-app.get("/", Controller.getRestaurants);
+app.post("/", checkCreateRestaurant, handleValidatorError, createRestaurant);
+app.get("/", getRestaurants);
 
 module.exports = app;
