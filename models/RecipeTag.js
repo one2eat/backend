@@ -12,9 +12,11 @@ module.exports = (sequelize, DataTypes) => {
   );
   RecipeTag.associate = function(models) {
     models.RecipeTag.hasOne(models.Tag, {
-      foreignKey: "recipesId",
-      sourceKey: "id"
+      foreignKey: "id",
+      sourceKey: "recipesId"
     });
+
+    // models.RecipeTag.belongsTo(models.Tag, {});
   };
   return RecipeTag;
 };

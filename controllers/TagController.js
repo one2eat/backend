@@ -21,16 +21,17 @@ const createTag = async (req, res) => {
 const getTag = async (req, res) => {
   try {
     const result = await Tag.findAll();
+
     res.send({
       message: "succesfully get tag",
       data: result
     });
   } catch (err) {
-    console.log(err);
-
-    res.send({
-      message: "tag not found"
+    res.status(500).send({
+      message: "There's an error on our side and that's all we know"
     });
+
+    throw new Error(err);
   }
 };
 
@@ -65,4 +66,10 @@ const updateTag = async (req, res) => {
     });
   }
 };
-module.exports = { createTag, getTag, deleteTag, updateTag };
+
+module.exports = {
+  createTag,
+  getTag,
+  deleteTag,
+  updateTag
+};
