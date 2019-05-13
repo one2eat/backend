@@ -12,5 +12,6 @@ module.exports = {
   Recipe: require("./RecipeRoutes"),
   Restaurant: require("./RestaurantRoutes"),
   User: require("./UserRoutes"),
-  Search: require("./SearchRoutes")
+  Search: require("./SearchRoutes"),
+  Tag: require("./TagRoutes")
 };

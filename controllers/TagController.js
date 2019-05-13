@@ -1,4 +1,4 @@
-const model = require("../models/Tag").tag;
+const { Tag } = require("../models");
 
 const createTag = async (req, res) => {
   try {
@@ -20,12 +20,14 @@ const createTag = async (req, res) => {
 
 const getTag = async (req, res) => {
   try {
-    const result = await model.findAll();
+    const result = await Tag.findAll();
     res.send({
       message: "succesfully get tag",
       data: result
     });
   } catch (err) {
+    console.log(err);
+
     res.send({
       message: "tag not found"
     });
@@ -63,4 +65,4 @@ const updateTag = async (req, res) => {
     });
   }
 };
-module.exports({ createTag, getTag, deleteTag, updateTag });
+module.exports = { createTag, getTag, deleteTag, updateTag };

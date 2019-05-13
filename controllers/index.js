@@ -2,5 +2,6 @@ module.exports = {
   Restaurant: require("./RestaurantController"),
   Recipe: require("./RecipeController"),
   User: require("./UserController"),
-  Search: require("./SearchController")
+  Search: require("./SearchController"),
+  Tag: require("./TagController")
 };

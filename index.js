@@ -29,6 +29,7 @@ app.use("/users", Routes.User);
 app.use("/restaurants", Routes.Restaurant);
 app.use("/recipes", Routes.Recipe);
 app.use("/search", Routes.Search);
+app.use("/tags", Routes.Tag);
 
 // Handle Sentry
 app.use(function onError(err, req, res, next) {
