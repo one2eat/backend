@@ -1,11 +1,6 @@
 const app = require("express").Router();
 
 const {
-  RestaurantMenuTag: Middleware,
-  handleValidatorError
-} = require("../middleware");
-
-const {
   createRestaurantMenuTag,
   getRestaurantMenuTag,
   deleteRestaurantMenuTag,

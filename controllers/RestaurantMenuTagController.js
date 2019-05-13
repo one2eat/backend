@@ -1,50 +1,54 @@
-const model = require("../models/RestaurantMenuTag").RestaurantMenuTag;
+const { restaurantMenuTag } = require("../models");
 
 const createRestaurantMenuTag = async (req, res) => {
   try {
     const { restaurantMenuId, tagId } = req.body;
-    const create = await model.create({ restaurantMenuId, tagId });
+    const create = await restaurantMenuTag.create({ restaurantMenuId, tagId });
 
     res.status(201).send({
       message: "success create restaurantMenuTag",
       data: create
     });
   } catch (err) {
-    res.send({ message: "failed to create restaurantMenuTag" });
+    res.status(500).send({ message: "failed to create restaurantMenuTag" });
+
+    throw new Error(err);
   }
 };
 
 const getRestaurantMenuTag = async (req, res) => {
   try {
-    const result = await model.findAll();
+    const result = await restaurantMenuTag.findAll();
     res.send({
       message: "success get RestaurantMenuTag",
       data: result
     });
   } catch (err) {
-    res.send({
+    res.status(500).send({
       message: "restaurantMenuTag not found"
     });
+    throw new Error(err);
   }
 };
 
 const deleteRestaurantMenuTag = async (req, res) => {
   try {
-    const remove = await model.findByPk(req.path.id);
+    const remove = await restaurantMenuTag.findByPk(req.path.id);
     remove.delete();
     res.send({
       message: "restaurantMenuTag successfully deleted"
     });
   } catch (err) {
-    res.send({
+    res.status(500).send({
       message: "failed to delete restaurantMenuTag"
     });
+    throw new Error(err);
   }
 };
 
 const updateRestaurantMenuTag = async (req, res) => {
   try {
-    const restaurantMenuTag = await model.findByPk(req.params.id);
+    const restaurantMenuTag = await restaurantMenuTag.findByPk(req.params.id);
 
     if (restaurantMenuTag === null) {
       return res.send({ message: "restaurantMenuTag not found" });
@@ -60,9 +64,10 @@ const updateRestaurantMenuTag = async (req, res) => {
       message: "succes to update restaurantMenuTag"
     });
   } catch (err) {
-    res.send({
+    res.status(500).send({
       message: "failed to update restaurantMenuTag"
     });
+    throw new Error(err);
   }
 };
 module.exports({
