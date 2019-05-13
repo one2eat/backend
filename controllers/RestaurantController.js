@@ -1,5 +1,4 @@
 const model = require("../models").Restaurant;
-const { validationResult } = require("express-validator/check");
 
 const createRestaurant = async (req, res) => {
   try {
