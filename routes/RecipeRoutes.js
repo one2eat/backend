@@ -11,7 +11,8 @@ const {
   getOneRecipe,
   createRecipeReview,
   getRecipeReview,
-  deleteRecipes
+  deleteRecipes,
+  updateRecipes
 } = require("../controllers").Recipe;
 const route = require("express").Router();
 
@@ -37,5 +38,7 @@ route.post(
 route.get("/:id/review", getRecipeReview);
 
 route.delete("/:id", deleteRecipes);
+
+route.update("/:id", updateRecipes);
 
 module.exports = route;

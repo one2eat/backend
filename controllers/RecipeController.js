@@ -200,11 +200,26 @@ const deleteRecipes = async (req, res) => {
   }
 };
 
+const updateRecipes = async (req, res) => {
+  try {
+    const addRecipe = await model.findByPk(req.path.id);
+    addRecipe.update();
+    res.send({
+      message: "add recipe succeed"
+    });
+  } catch (err) {
+    res.send({
+      message: "failed to add recipe"
+    });
+  }
+};
+
 module.exports = {
   createRecipe,
   getAllRecipes,
   getOneRecipe,
   createRecipeReview,
   getRecipeReview,
-  deleteRecipes
+  deleteRecipes,
+  updateRecipes
 };

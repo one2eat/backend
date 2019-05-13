@@ -53,7 +53,9 @@ const updateRestaurant = async (req, res) => {
       message: "update Restaurant succeed"
     });
   } catch (err) {
-    message: "failed to update";
+    res.send({
+      message: "failed to update"
+    });
   }
 };
 module.exports = {
