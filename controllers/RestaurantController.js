@@ -44,8 +44,21 @@ const deleteRestaurant = async (req, res) => {
     });
   }
 };
+
+const updateRestaurant = async (req, res) => {
+  try {
+    const addRestaurant = await model.findByPk(req.path.id);
+    addRestaurant.update();
+    res.send({
+      message: "update Restaurant succeed"
+    });
+  } catch (err) {
+    message: "failed to update";
+  }
+};
 module.exports = {
   createRestaurant,
   getRestaurants,
-  deleteRestaurant
+  deleteRestaurant,
+  updateRestaurant
 };
