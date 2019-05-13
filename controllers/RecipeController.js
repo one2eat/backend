@@ -202,8 +202,19 @@ const deleteRecipes = async (req, res) => {
 
 const updateRecipes = async (req, res) => {
   try {
-    const addRecipe = await model.findByPk(req.path.id);
-    addRecipe.update();
+    const recipe = await model.findByPk(req.params.id);
+
+    if (recipe === null) {
+      return res.send({ message: "recipe not found" });
+    }
+
+    const { name, imageUrl, ingredients, steps } = req.body;
+    const updatedRecipe = await recipe.update({
+      name,
+      imageUrl,
+      ingredients,
+      steps
+    });
     res.send({
       message: "add recipe succeed"
     });

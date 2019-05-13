@@ -46,12 +46,25 @@ const deleteRestaurant = async (req, res) => {
 
 const updateRestaurant = async (req, res) => {
   try {
-    const addRestaurant = await model.findByPk(req.path.id);
-    addRestaurant.update();
+    const restaurant = await model.findByPk(req.params.id);
+
+    if (restaurant === null) {
+      return res.send({ message: "restaurant not found" });
+    }
+
+    const { name, imageUrl, address, phoneNumber } = req.body;
+    const updatedRestaurant = await restaurant.update({
+      name,
+      imageUrl,
+      address,
+      phoneNumber
+    });
+
     res.send({
       message: "update Restaurant succeed"
     });
   } catch (err) {
+    console.log(err);
     res.send({
       message: "failed to update"
     });

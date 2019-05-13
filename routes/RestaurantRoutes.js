@@ -18,6 +18,6 @@ const {
 app.post("/", checkCreateRestaurant, handleValidatorError, createRestaurant);
 app.get("/", getRestaurants);
 app.delete("/:id", deleteRestaurant);
-app.update("/:id", updateRestaurant);
+app.put("/:id", updateRestaurant);
 
 module.exports = app;
