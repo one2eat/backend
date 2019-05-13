@@ -186,10 +186,25 @@ const getRecipeReview = async (req, res) => {
   }
 };
 
+const deleteRecipes = async (req, res) => {
+  try {
+    const remove = await model.findByPk(req.path.id);
+    remove.delete();
+    res.send({
+      message: "recipe is deleted"
+    });
+  } catch (err) {
+    res.send({
+      message: "failed to delete recipe"
+    });
+  }
+};
+
 module.exports = {
   createRecipe,
   getAllRecipes,
   getOneRecipe,
   createRecipeReview,
-  getRecipeReview
+  getRecipeReview,
+  deleteRecipes
 };
