@@ -39,6 +39,6 @@ route.get("/:id/review", getRecipeReview);
 
 route.delete("/:id", deleteRecipes);
 
-route.update("/:id", updateRecipes);
+route.put("/:id", updateRecipes);
 
 module.exports = route;
