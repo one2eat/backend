@@ -8,12 +8,14 @@ const {
 const { checkCreateRestaurant, checkCreateReviewRestaurant } = Middleware;
 const {
   createRestaurant,
-  getRestaurants
+  getRestaurants,
+  deleteRestaurant
 } = require("../controllers").Restaurant;
 
 // const Middleware = .Restaurant;
 
 app.post("/", checkCreateRestaurant, handleValidatorError, createRestaurant);
 app.get("/", getRestaurants);
+app.delete("/:id", deleteRestaurant);
 
 module.exports = app;

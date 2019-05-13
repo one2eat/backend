@@ -30,7 +30,22 @@ const getRestaurants = async (req, res) => {
     data: result
   });
 };
+
+const deleteRestaurant = async (req, res) => {
+  try {
+    const remove = await model.findByPk(req.path.id);
+    remove.delete();
+    res.send({
+      message: "restaurant is deleted"
+    });
+  } catch (err) {
+    res.send({
+      message: "failed to delete restaurant"
+    });
+  }
+};
 module.exports = {
   createRestaurant,
-  getRestaurants
+  getRestaurants,
+  deleteRestaurant
 };
