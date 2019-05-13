@@ -1,6 +1,6 @@
 const model = require("../models/RecipeTag").recipeTag;
 
-const createRecipeTag = async (req, res) => {
+const createRecipesTag = async (req, res) => {
   try {
     const { recipesId, tagId } = req.body;
     const create = await model.create({ recipesId, tagId });
@@ -62,7 +62,7 @@ const updateRecipesTag = async (req, res) => {
 };
 
 module.exports({
-  createRecipeTag,
+  createRecipesTag,
   getRecipesTag,
   deleteRecipesTag,
   updateRecipesTag
