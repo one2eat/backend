@@ -3,5 +3,6 @@ module.exports = {
   Recipe: require("./RecipeController"),
   User: require("./UserController"),
   Search: require("./SearchController"),
-  Tag: require("./TagController")
+  Tag: require("./TagController"),
+  RestaurantMenuTag: require("./RestaurantMenuTagController")
 };

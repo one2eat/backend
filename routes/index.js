@@ -13,5 +13,6 @@ module.exports = {
   Restaurant: require("./RestaurantRoutes"),
   User: require("./UserRoutes"),
   Search: require("./SearchRoutes"),
-  Tag: require("./TagRoutes")
+  Tag: require("./TagRoutes"),
+  RestaurantMenuTag: require("./RestaurantMenuTagRoutes")
 };

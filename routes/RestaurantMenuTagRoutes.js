@@ -5,7 +5,7 @@ const {
   getRestaurantMenuTag,
   deleteRestaurantMenuTag,
   updateRestaurantMenuTag
-} = require("../controllers").RecipeTag;
+} = require("../controllers").RestaurantMenuTag;
 
 app.post("/", createRestaurantMenuTag);
 app.get("/", getRestaurantMenuTag);
