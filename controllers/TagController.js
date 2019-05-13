@@ -3,18 +3,18 @@ const { Tag } = require("../models");
 const createTag = async (req, res) => {
   try {
     const { name } = req.body;
-    const create = await model.create({ name });
-
-    if (tag === null) {
-      res.send({ message: "tag is not found" });
-    }
+    const create = await Tag.create({ name });
 
     res.status(201).send({
       message: "success create tag",
       data: create
     });
   } catch (err) {
-    res.send({ message: "failed to create tag" });
+    console.log(err);
+
+    res.status(500).send({ message: "failed to create tag" });
+
+    throw new Error(err);
   }
 };
 
@@ -37,21 +37,28 @@ const getTag = async (req, res) => {
 
 const deleteTag = async (req, res) => {
   try {
-    const remove = await model.findByPk(req.path.id);
-    remove.delete();
+    const remove = await Tag.findByPk(req.params.id);
+
+    if (remove === null) {
+      return res.send({ message: "tag not found" });
+    }
+
+    await remove.destroy();
     res.send({
       message: "tag successfully deleted"
     });
   } catch (err) {
-    res.send({
+    res.status(500).send({
       message: "failed to delete tag"
     });
+
+    throw new Error(err);
   }
 };
 
 const updateTag = async (req, res) => {
   try {
-    const tag = await model.findByPk(req.params.id);
+    const tag = await Tag.findByPk(req.params.id);
 
     if (tag === null) {
       return res.send({ message: "tag not found" });
@@ -61,9 +68,11 @@ const updateTag = async (req, res) => {
 
     res.send({ message: "success to update tag" });
   } catch (err) {
-    res.send({
+    res.status(500).send({
       message: "failed to update tag"
     });
+
+    throw new Error(err);
   }
 };
 
