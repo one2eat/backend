@@ -14,5 +14,6 @@ module.exports = {
   User: require("./UserRoutes"),
   Search: require("./SearchRoutes"),
   Tag: require("./TagRoutes"),
-  RestaurantMenuTag: require("./RestaurantMenuTagRoutes")
+  RestaurantMenuTag: require("./RestaurantMenuTagRoutes"),
+  RecipeTag: require("./RecipesTagRoutes")
 };

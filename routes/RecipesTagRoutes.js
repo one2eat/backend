@@ -1,15 +1,10 @@
 const app = require("express").Router();
 
 const {
-  RecipesTag: Middleware,
-  handleValidatorError
-} = require("../middleware");
-
-const {
   createRecipesTag,
-  getRecipesTag,
+  updateRecipesTag,
   deleteRecipesTag,
-  updateRecipesTag
+  getRecipesTag
 } = require("../controllers").RecipeTag;
 
 app.post("/", createRecipesTag);
