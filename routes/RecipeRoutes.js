@@ -14,6 +14,9 @@ const {
   deleteRecipes,
   updateRecipes
 } = require("../controllers").Recipe;
+
+const { getRecipesRecommendation } = require("../controllers").Recommendation;
+
 const route = require("express").Router();
 
 route.post(
@@ -25,6 +28,8 @@ route.post(
 );
 
 route.get("/", isAuthorized, getAllRecipes);
+route.get("/recommendation", getRecipesRecommendation);
+
 route.get("/:id", isAuthorized, getOneRecipe);
 
 route.post(

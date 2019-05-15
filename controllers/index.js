@@ -6,5 +6,6 @@ module.exports = {
   Tag: require("./TagController"),
   RestaurantMenuTag: require("./RestaurantMenuTagController"),
   RecipeTag: require("./RecipeTagController"),
-  RestaurantsTag: require("./RestaurantsTagController")
+  RestaurantsTag: require("./RestaurantsTagController"),
+  Recommendation: require("./RecommendationController")
 };
