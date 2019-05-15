@@ -6,6 +6,7 @@ const getRecipesRecommendation = async (req, res) => {
     SELECT
       Recipes.id,
       Recipes.\`name\`,
+      Recipes.\`imageUrl\`,
       COUNT(RecipeReviews.stars)*RecipeReviews.stars/COUNT(RecipeReviews.stars) as reviewCount
     FROM
       Recipes
