@@ -11,7 +11,7 @@ const getRecipesRecommendation = async (req, res) => {
     FROM
       Recipes
     LEFT JOIN RecipeReviews
-      ON Recipes.id = one2eat_dev.RecipeReviews.recipesId
+      ON Recipes.id = RecipeReviews.recipesId
     GROUP BY Recipes.id
     ORDER BY reviewCount DESC, COUNT(RecipeReviews.stars) DESC LIMIT 10  
   `;
