@@ -1,24 +1,70 @@
-const model = require("../models").Restaurant;
+const { Restaurant, Tag, RestaurantTag, sequelize } = require("../models");
 
 const createRestaurant = async (req, res) => {
+  let transaction;
+
   try {
-    const { name, imageUrl, address, phoneNumber } = req.body;
-    const create = await model.create({
-      name,
-      imageUrl,
-      address,
-      phoneNumber
-    });
+    const { name, imageUrl, address, phoneNumber, tags } = req.body;
+
+    transaction = await sequelize.transaction();
+
+    const create = await Restaurant.create(
+      {
+        name,
+        imageUrl,
+        address,
+        phoneNumber
+      },
+      { transaction }
+    );
+
+    await Promise.all(
+      tags.map(async tag => {
+        const [newTag, created] = await Tag.findOrCreate(
+          {
+            where: {
+              name: tag.toLowerCase()
+            },
+            transaction
+          }
+          // { transaction }
+        );
+
+        await RestaurantTag.findOrCreate(
+          {
+            where: {
+              restaurantId: create.id,
+              tagId: newTag.id
+            },
+            transaction
+          }
+          // { transaction }
+        );
+      })
+    );
+
+    transaction.commit();
+
+    // const create = await model.create({
+    //   name,
+    //   imageUrl,
+    //   address,
+    //   phoneNumber
+    // });
 
     res.status(201).send({
-      message: "successfully created restaurant",
-      data: create
+      message: "successfully created restaurant"
+      // data: create
     });
   } catch (err) {
-    res.send({
+    transaction.rollback();
+
+    res.status(500).send({
       message: "failed to create restaurant",
       stack: err
     });
+
+    throw new Error(err);
   }
 };
 
