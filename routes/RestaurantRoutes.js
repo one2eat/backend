@@ -6,6 +6,11 @@ const {
 } = require("../middleware");
 
 const { checkCreateRestaurant, checkCreateReviewRestaurant } = Middleware;
+
+const {
+  getRestaurantRecommendation
+} = require("../controllers").Recommendation;
+
 const {
   createRestaurant,
   getRestaurants,
@@ -15,6 +20,7 @@ const {
 
 // const Middleware = .Restaurant;
 
+app.get("/recommendation", getRestaurantRecommendation);
 app.post("/", checkCreateRestaurant, handleValidatorError, createRestaurant);
 app.get("/", getRestaurants);
 app.delete("/:id", deleteRestaurant);
