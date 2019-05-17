@@ -1,10 +1,24 @@
-const { Restaurant, Tag, RestaurantTag, sequelize } = require("../models");
+const {
+  Restaurant,
+  Tag,
+  RestaurantTag,
+  RestaurantTime,
+  sequelize
+} = require("../models");
 
 const createRestaurant = async (req, res) => {
   let transaction;
 
   try {
-    const { name, imageUrl, address, phoneNumber, tags } = req.body;
+    const {
+      name,
+      imageUrl,
+      address,
+      phoneNumber,
+      tags,
+      openTime,
+      closeTime
+    } = req.body;
 
     transaction = await sequelize.transaction();
 
@@ -43,6 +57,12 @@ const createRestaurant = async (req, res) => {
       })
     );
 
+    await RestaurantTime.create({
+      restaurantsId: create.id,
+      openTime,
+      closeTime
+    });
+
     transaction.commit();
 
     // const create = await model.create({
@@ -70,7 +90,9 @@ const createRestaurant = async (req, res) => {
 
 const getRestaurants = async (req, res) => {
   try {
-    const result = await Restaurant.findAll();
+    const result = await Restaurant.findAll({
+      include: [RestaurantTime]
+    });
     res.send({
       message: "successfully get restaurant",
       data: result
@@ -86,7 +108,9 @@ const getRestaurants = async (req, res) => {
 
 const getRestaurantDetail = async (req, res) => {
   try {
-    const result = await Restaurant.findByPk(req.params.id);
+    const result = await Restaurant.findByPk(req.params.id, {
+      include: [RestaurantTime]
+    });
     res.send({
       message: "successfully get restaurant",
       data: result
