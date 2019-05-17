@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Restaurant.associate = function(models) {
-    // associations can be defined here
+    models.Restaurant.hasOne(models.RestaurantTime, {
+      foreignKey: "restaurantsId",
+      sourceKey: "id"
+    });
   };
   return Restaurant;
 };
