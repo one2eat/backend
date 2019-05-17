@@ -43,15 +43,15 @@ const getRestaurantRecommendation = async (req, res) => {
     stars.length
     FROM
     RestaurantTags
-    JOIN Restaurants
+    LEFT JOIN Restaurants
     ON RestaurantTags.restaurantId = Restaurants.id 
-    JOIN Tags
+    LEFT JOIN Tags
     ON Tags.id = RestaurantTags.tagId 
-    JOIN (
+    LEFT JOIN (
       SELECT restaurantId, COUNT(*) as length FROM RestaurantReviews
     ) stars
     ON stars.restaurantId = Restaurants.id
-    JOIN RestaurantReviews ON RestaurantReviews.restaurantId = Restaurants.id
+    LEFT JOIN RestaurantReviews ON RestaurantReviews.restaurantId = Restaurants.id
     GROUP BY id
     ORDER BY stars.length DESC, starsAvg DESC
     LIMIT 3
