@@ -11,14 +11,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   Recipe.associate = models => {
-    // models.Recipe.hasMany(models.RecipeIngredient, {
-    //   foreignKey: "id",
-    //   sourceKey: "recipesId"
-    // });
-    // models.Recipe.hasMany(models.RecipeStep, {
-    //   foreignKey: "recipesId",
-    //   sourceKey: "id"
-    // });
+    models.Recipe.hasMany(models.RecipeIngredient, {
+      foreignKey: "recipesId",
+      sourceKey: "id"
+    });
+    models.Recipe.hasMany(models.RecipeStep, {
+      foreignKey: "recipesId",
+      sourceKey: "id"
+    });
   };
 
   return Recipe;
