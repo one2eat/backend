@@ -15,14 +15,17 @@ const {
   createRestaurant,
   getRestaurants,
   deleteRestaurant,
-  updateRestaurant
+  updateRestaurant,
+  getRestaurantDetail
 } = require("../controllers").Restaurant;
 
 // const Middleware = .Restaurant;
 
 app.get("/recommendation", getRestaurantRecommendation);
+
 app.post("/", checkCreateRestaurant, handleValidatorError, createRestaurant);
 app.get("/", getRestaurants);
+app.get("/:id", getRestaurantDetail);
 app.delete("/:id", deleteRestaurant);
 app.put("/:id", updateRestaurant);
 

@@ -69,16 +69,40 @@ const createRestaurant = async (req, res) => {
 };
 
 const getRestaurants = async (req, res) => {
-  const result = await model.findAll();
-  res.send({
-    message: "successfully get restaurant",
-    data: result
-  });
+  try {
+    const result = await Restaurant.findAll();
+    res.send({
+      message: "successfully get restaurant",
+      data: result
+    });
+  } catch (e) {
+    res.status(500).send({
+      message: `There's an error in our end, and that's all we know`
+    });
+
+    throw new Error(e);
+  }
+};
+
+const getRestaurantDetail = async (req, res) => {
+  try {
+    const result = await Restaurant.findByPk(req.params.id);
+    res.send({
+      message: "successfully get restaurant",
+      data: result
+    });
+  } catch (e) {
+    res.status(500).send({
+      message: `There's an error in our end, and that's all we know`
+    });
+
+    throw new Error(e);
+  }
 };
 
 const deleteRestaurant = async (req, res) => {
   try {
-    const remove = await model.findByPk(req.path.id);
+    const remove = await Restaurant.findByPk(req.path.id);
     remove.delete();
     res.send({
       message: "restaurant is deleted"
@@ -120,5 +144,6 @@ module.exports = {
   createRestaurant,
   getRestaurants,
   deleteRestaurant,
-  updateRestaurant
+  updateRestaurant,
+  getRestaurantDetail
 };
