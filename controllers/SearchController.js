@@ -12,7 +12,7 @@ const searchRecipesAndRestaurant = async (req, res) => {
 SELECT
 Recipes.id,
 Recipes.\`name\`,
-SUM(RecipeReviews.stars)/stars.length/COUNT(*) as star,
+IFNULL(SUM(RecipeReviews.stars)/stars.length/COUNT(*), 5) as star,
 CONCAT( "recipe" ) AS type
 FROM
 Recipes
@@ -36,7 +36,7 @@ UNION ALL
 SELECT
 Restaurants.id,
 Restaurants.\`name\`,
-SUM(RestaurantReviews.stars)/stars.length/COUNT(*) AS star,
+IFNULL(SUM(RestaurantReviews.stars)/stars.length/COUNT(*),5) AS star,
 CONCAT("restaurant") as type
 FROM
 RestaurantTags

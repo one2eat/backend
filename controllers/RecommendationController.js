@@ -7,7 +7,7 @@ const getRecipesRecommendation = async (req, res) => {
       Recipes.id,
       Recipes.\`name\`,
       Recipes.\`imageUrl\`,
-      COUNT(RecipeReviews.stars)*RecipeReviews.stars/COUNT(RecipeReviews.stars) as reviewCount
+      IFNULL(COUNT(RecipeReviews.stars)*RecipeReviews.stars/COUNT(RecipeReviews.stars),5) as reviewCount
     FROM
       Recipes
     LEFT JOIN RecipeReviews
@@ -39,7 +39,7 @@ const getRestaurantRecommendation = async (req, res) => {
     Restaurants.id,
     Restaurants.\`name\`,
     Tags.\`name\` AS tag,
-    SUM(RestaurantReviews.stars)/stars.length/COUNT(*) as starsAvg ,
+    IFNULL(SUM(RestaurantReviews.stars)/stars.length/COUNT(*),5) as starsAvg ,
     stars.length
     FROM
     RestaurantTags
