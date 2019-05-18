@@ -39,6 +39,7 @@ const getRestaurantRecommendation = async (req, res) => {
     Restaurants.id,
     Restaurants.\`name\`,
     Tags.\`name\` AS tag,
+    Restaurants.imageUrl,
     IFNULL(SUM(RestaurantReviews.stars)/stars.length/COUNT(*),5) as starsAvg ,
     stars.length
     FROM
